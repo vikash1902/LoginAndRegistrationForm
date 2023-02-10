@@ -1,0 +1,78 @@
+
+/***** styling menu  *********/
+.menu_div {
+	background: #DBDBDB;
+	background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0.63,
+		#DBDBDB), color-stop(0.85, #ADABAD));
+	background-image: -o-linear-gradient(right bottom, #DBDBDB 63%, #ADABAD 85%);
+	background-image: -moz-linear-gradient(right bottom, #DBDBDB 63%, #ADABAD 85%);
+	background-image: -webkit-linear-gradient(right bottom, #DBDBDB 63%, #ADABAD 85%);
+	background-image: -ms-linear-gradient(right bottom, #DBDBDB 63%, #ADABAD 85%);
+	background-image: linear-gradient(to right bottom, #DBDBDB 63%, #ADABAD 85%);
+	width: 20%;
+	position: absolute;
+	top: 40px;
+	bottom: 0px;
+	margin-top: 15px;
+	margin-bottom: 100px;
+}
+
+.menu_div ul {
+	padding: 0px;
+	margin: 0px;
+	padding-top: 0px;
+	margin-top: 0px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	color: #000000;
+	list-style: none;
+	text-indent: 10px;
+	color: #000000;
+}
+
+.menu_div ul li {
+	padding: 0px;
+	margin: 0px;
+	padding-top: 10px;
+	margin-top: 0px;
+	list-style: none;
+	background: transparent;
+	line-height: 20px;
+	border: none;
+	color: #ffffff;
+}
+
+.menu_div ul li a {
+	padding: 0px;
+	margin: 0px;
+	padding-top: 0px;
+	margin-top: 0px;
+	text-decoration: none;
+	font-weight: bold;
+	color: #000000;
+	display: block;
+}
+
+.menu_div ul li:hover {
+	background: #d5ed9e;
+	color: #323231;
+}
+
+.menu_div ul li a:hover {
+	color: #323231;
+}
+
+/*************** layout style *************/
+#body_container {
+	width: 80%;
+	position: absolute;
+	top: 82px;
+	bottom: 0px;
+	left: 20%;
+	background: none repeat scroll 0 0 #FFFFFF;
+}
+
+#modifytab{
+	margin-top : 250px;
+	margin-left : 350px;
+}

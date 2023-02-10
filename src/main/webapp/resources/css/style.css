@@ -1,0 +1,47 @@
+@font-face{font-family:"Open_Sans"; src:url('../fonts/OpenSans-Regular.ttf');}
+@font-face{font-family:"Open_Sans_b"; src:url('../fonts/OpenSans-Semibold.ttf');}
+.bg{background:url(../images/bg.jpg) no-repeat center fixed; background-size:100% 100%; padding:0; margin:0;}
+/*--------------------loginPage--------------------*/
+.box{margin-top:8%; box-shadow:0 20px 50px -30px #333; overflow:hidden;}
+h3{font-family:"Open_Sans_b"; color:#fff;}
+label{font-size:13px; color:#ccc;}
+.form-control, .form-select{border:1px solid #eee; border-radius:0; font-size:14px; }
+.form-control:focus, .form-select:focus{box-shadow:none;}
+.side_img{width:40%; font-style:italic; background:rgba(7,61,113,.5); color:#fff; padding:4% 3% 0; line-height:30px; letter-spacing:1px;}
+.side_img2{width:25%;}
+.login{width: 60%; padding:5%; background:rgba(0,0,0,.4);}
+.login .form-control{border-left:5px solid #1860a6; background:#f9f9f9;}
+.register{width:75%; padding:4% 3%;}
+.side_img h4{color:#fff; font-size:40px; font-family:"Open_Sans_b"; line-height:80px; text-align:center;}
+.captcha input{width:55%; float:left;}
+.captcha img{height:34px; width:100px; margin-left:15px;}
+.captcha span{padding-right:5px; float:right; color:#fff;}
+.btn-main{background: linear-gradient(to right, #11467a 0%,#4c8cca 50%,#11467a 100%); color:#fff; font-size:16px; border-radius:25px;}
+.btn-main:hover, .btn-main:focus{color:#fff;}
+.signup{margin-top:15px; font-size:14px; text-align:center;}
+.signup a{text-decoration:none; color:#bbb;}
+.signup a:hover{text-decoration:underline; color:#eee;}
+.details{background: #4387cb; color: #ddd; padding: 6px 20px; font-size: 14px;}
+.details span {font-weight: 600; margin-left: 8px; font-size: 15px; color: #fff;}
+
+/*--------------------footer--------------------*/
+footer{color: #fff; background:#ddd; padding: 10px; font-size: 13px; letter-spacing: .5px; position: fixed; width: 88%; bottom: 0; text-align: center;}
+
+/*--------------------media query--------------------*/
+@media (max-width: 991px) {
+.side_img, .login, .register, .side_img2{ width: 100%; }
+}
+@media only screen and (max-width:768px){
+header{text-align:center; margin-bottom:0;}
+.box{line-height:normal; height:auto; margin:0;}
+footer{position:inherit;}
+
+.ps-3 img{
+	width: 50% !important;
+	height: auto;
+}
+
+}
+
+/*----------------------------modification page styling-------------------------------*/
+
