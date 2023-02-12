@@ -1,20 +1,24 @@
 package com.loginRegistration.controller;
 
-import java.util.List;
-
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.loginRegistration.model.ReCaptchaResponse;
 import com.loginRegistration.model.UserBean;
 import com.loginRegistration.model.loginRegistrationBean;
 import com.loginRegistration.service.LoginRegistrationService;
+
+import antlr.StringUtils;
 
 @Controller
 public class ActionController {
@@ -23,30 +27,33 @@ public class ActionController {
 	@Autowired
 	private UserBean user;
 
+	@Autowired
+	private RestTemplate restTemplate;
+
 	@GetMapping("/")
 	public String home() {
 		return "welcome";
 	}
 
 	@PostMapping("/reglog")
-	public String renderPage(@ModelAttribute("reglog") loginRegistrationBean loginRegistration) {
+	public ModelAndView renderPage(@ModelAttribute("reglog") loginRegistrationBean loginRegistration,
+			HttpServletRequest request) {
 		if (loginRegistration.getButton() == null) {
-			return "welcome";
+			return new ModelAndView("welcome");
 		} else if (loginRegistration.getButton().equalsIgnoreCase("registration")) {
-			return "registration";
+			return new ModelAndView("registration");
 		} else if (loginRegistration.getButton().equalsIgnoreCase("login")) {
-			return "login";
+			return new ModelAndView("login");
 		} else if (loginRegistration.getButton().equalsIgnoreCase("home")) {
-			return "welcome";
+			return new ModelAndView("welcome");
 		}
-		return "welcome";
-
+		return new ModelAndView("welcome");
 	}
 
 	@PostMapping("/registration")
-	public ModelAndView registration(@ModelAttribute("registration") loginRegistrationBean loginRegistration,
+	public ModelAndView registration(@ModelAttribute("registration")  loginRegistrationBean loginRegistration,
 			ModelAndView model) {
-		if (loginRegistration.getButton().equalsIgnoreCase("logout")) {
+			if (loginRegistration.getButton().equalsIgnoreCase("logout")) {
 			model.setViewName("welcome");
 			return model;
 		}
@@ -71,37 +78,47 @@ public class ActionController {
 
 	@PostMapping("/login")
 	public ModelAndView login(@ModelAttribute("login") loginRegistrationBean loginRegistration, ModelAndView model,
-			HttpSession session) {
+			@RequestParam(name = "g-recaptcha-response") String captchaResponse, HttpSession session) {
+		String url = "https://www.google.com/recaptcha/api/siteverify";
+		String params = "?secret=6LeyfG8kAAAAAK1xogfkJWAnJk9KludIhRaM7--_&response=" + captchaResponse;
+		ReCaptchaResponse reCaptchaResponse = restTemplate
+				.exchange(url + params, HttpMethod.POST, null, ReCaptchaResponse.class).getBody();
 		if (loginRegistration.getButton().equalsIgnoreCase("back")) {
 			System.err.println(loginRegistration.getButton());
 			model.setViewName("welcome");
 			return model;
-		} else if (loginRegistration.getUserId().equals("") || loginRegistration.getPassword().equals("")
-				|| loginRegistration.getUserId() == null || loginRegistration.getPassword() == null) {
-			model.setViewName("login");
-			return model;
 		}
-
-		if (loginRegistration.getButton().equalsIgnoreCase("login")) {
-			user.setUserID(loginRegistration.getUserId());
-			user.setPassword(loginRegistration.getPassword());
-			loginRegistrationBean role = loginRegistrationService.login(loginRegistration);
-			if (role == null || role.getRole() == null || role.getRole().equals("")) {
+		if (reCaptchaResponse.isSuccess()) {
+			if (loginRegistration.getUserId().equals("") || loginRegistration.getPassword().equals("")
+					|| loginRegistration.getUserId() == null || loginRegistration.getPassword() == null) {
 				model.setViewName("login");
 				return model;
-			} else if (role.getRole().equalsIgnoreCase("user")) {
-				session.setAttribute("user", user);
-				model.addObject("userinfo", role);
-				model.setViewName("userPage");
-			} else if (role.getRole().equalsIgnoreCase("admin")) {
-				session.setAttribute("user", user);
-				model.addObject("userData", loginRegistrationService.getAllUser("USER", "A"));
-				model.setViewName("adminPage");
 			}
+			if (loginRegistration.getButton().equalsIgnoreCase("login")) {
+				user.setUserID(loginRegistration.getUserId());
+				user.setPassword(loginRegistration.getPassword());
+				loginRegistrationBean role = loginRegistrationService.login(loginRegistration);
+				if (role == null || role.getRole() == null || role.getRole().equals("")) {
+					model.setViewName("login");
+					return model;
+				} else if (role.getRole().equalsIgnoreCase("user")) {
+					session.setAttribute("user", user);
+					model.addObject("userinfo", role);
+					model.setViewName("userPage");
+				} else if (role.getRole().equalsIgnoreCase("admin")) {
+					session.setAttribute("user", user);
+					model.addObject("userData", loginRegistrationService.getAllUser("USER", "A"));
+					model.setViewName("adminPage");
+				}
+			} else {
+				model.setViewName("welcome");
+			}
+			return model;
+
 		} else {
-			model.setViewName("welcome");
+			return new ModelAndView("login", "message", "Please Validate Captcha");
 		}
-		return model;
+
 	}
 
 	@PostMapping("/logout")

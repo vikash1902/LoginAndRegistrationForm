@@ -32,7 +32,6 @@ public class Config {
 			Class.forName(env.getProperty("db.driver"));
 			Connection con = DriverManager.getConnection(env.getProperty("db.url"), env.getProperty("db.username"),
 					env.getProperty("db.password"));
-			System.err.println(con);
 			return con;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -40,5 +39,6 @@ public class Config {
 		return null;
 
 	}
+
 
 }

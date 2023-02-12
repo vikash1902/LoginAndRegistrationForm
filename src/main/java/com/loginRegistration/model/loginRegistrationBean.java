@@ -13,6 +13,7 @@ public class loginRegistrationBean {
 	private String email;
 	private String phoneNo;
 	private int id;
+	private String fileUpload;
 	private String button;
 	private String status;
 }

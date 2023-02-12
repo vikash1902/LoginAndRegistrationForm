@@ -5,6 +5,8 @@
 <head>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+	
+	<script src="https://ajax.goolepis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
@@ -37,10 +39,11 @@
 										<label for="userId" style="color: blue;"><b
 											style="font-size: 1.0em; font-family: italic">ENTER
 												USERID</b></label> <br> <input type="text" class="form-control"
-											name="userId" id="userId" placeholder="enter userid" maxlength="20">
+											name="userId" id="userId" placeholder="enter userid"
+											maxlength="20">
 									</div>
 									<br>
-									
+
 									<div class="form-group">
 										<label for="password" style="color: blue"><b
 											style="font-size: 1.0em; font-family: italic">ENTER
@@ -70,7 +73,16 @@
 										<label for="phone" style="color: blue"><b
 											style="font-size: 1.0em; font-family: italic">ENTER PHONE</b>
 										</label> <br> <input type="text" class="form-control"
-											name="phoneNo" id="phone" placeholder="ENTER YOUR NUMBER" maxlength="10">
+											name="phoneNo" id="phone" placeholder="ENTER YOUR NUMBER"
+											maxlength="10">
+									</div>
+									<br>
+
+									<div>
+										<h2></h2>
+										<label>Photos: </label> <input type="file" name="image"
+											accept="image/png, image/jpeg" />
+
 									</div>
 									<br>
 									<div style="margin-top: 10px; margin-left: 75px">
@@ -93,7 +105,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 </body>
 </html>
 
